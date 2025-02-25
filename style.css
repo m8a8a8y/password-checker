@@ -60,7 +60,7 @@ ul {
 }
 
 li {
-    text-align: right;
+    text-align: center;
     direction: rtl; 
     unicode-bidi: embed; 
 }
