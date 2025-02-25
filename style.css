@@ -4,35 +4,42 @@ body {
     background-size: cover;
     text-align: center;
     padding: 20px;
+    direction: rtl; 
 }
-
 
 .container {
     max-width: 600px;
     margin: 0 auto;
     padding: 20px;
-    background: #fff;
+    background: rgba(255, 255, 255, 0.9);
     border-radius: 8px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
 }
 
 .input-group {
     position: relative;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 
 input {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     font-size: 16px;
-    border: 1px solid #ddd;
+    border: 2px solid #ccc;
     border-radius: 5px;
+    outline: none;
+    transition: border 0.3s ease-in-out;
+}
+
+input:focus {
+    border: 2px solid #007BFF;
 }
 
 button {
     position: absolute;
-    right: 5px;
-    top: 5px;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
     background: none;
     border: none;
     cursor: pointer;
@@ -40,11 +47,11 @@ button {
 }
 
 .strength-bar {
-    height: 10px;
+    height: 12px;
     background: #ddd;
     border-radius: 5px;
     overflow: hidden;
-    margin-top: 5px;
+    margin-top: 8px;
 }
 
 #strengthIndicator {
@@ -60,9 +67,37 @@ ul {
 }
 
 li {
-    text-align: center;
-    direction: rtl; 
-    unicode-bidi: embed; 
+    text-align: right;
+    direction: rtl;
+    unicode-bidi: embed;
+    font-size: 14px;
+    color: #333;
+}
+
+.password-breach-checker {
+    margin-top: 20px;
+}
+
+#checkBreach {
+    background: #dc3545;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s;
+}
+
+#checkBreach:hover {
+    background: #c82333;
+}
+
+#breachResult {
+    display: none;
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: bold;
 }
 
 .attack-vectors .grid {
@@ -75,4 +110,12 @@ li {
     background: #ffe6e6;
     padding: 10px;
     border-radius: 5px;
+    text-align: right;
+    direction: rtl;
+}
+
+@media (max-width: 600px) {
+    .attack-vectors .grid {
+        grid-template-columns: 1fr;
+    }
 }
