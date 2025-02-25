@@ -1,9 +1,11 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f2f5;
+    background: url('nabeh.png') no-repeat center center fixed;
+    background-size: cover;
     text-align: center;
     padding: 20px;
 }
+
 
 .container {
     max-width: 600px;
