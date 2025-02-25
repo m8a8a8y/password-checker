@@ -61,7 +61,8 @@ ul {
 
 li {
     text-align: right;
-    color: #666;
+    direction: rtl; 
+    unicode-bidi: embed; 
 }
 
 .attack-vectors .grid {
