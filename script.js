@@ -1,5 +1,6 @@
 document.getElementById("password").addEventListener("input", updateStrength);
 document.getElementById("togglePassword").addEventListener("click", togglePasswordVisibility);
+document.getElementById("checkBreach").addEventListener("click", checkPasswordBreach);
 
 function updateStrength() {
     const password = document.getElementById("password").value;
@@ -50,4 +51,44 @@ function updateFeedback(feedback) {
 function togglePasswordVisibility() {
     const passwordInput = document.getElementById("password");
     passwordInput.type = passwordInput.type === "password" ? "text" : "password";
+}
+
+// Function to check if a password has been exposed in data breaches
+async function checkPasswordBreach() {
+    const password = document.getElementById("password").value;
+    const breachResult = document.getElementById("breachResult");
+
+    if (!password) {
+        breachResult.textContent = "الرجاء إدخال كلمة المرور أولاً.";
+        return;
+    }
+
+    const hashedPassword = await hashPassword(password);
+    const prefix = hashedPassword.substring(0, 5);
+    const suffix = hashedPassword.substring(5);
+
+    try {
+        const response = await fetch(`https://api.pwnedpasswords.com/range/${prefix}`);
+        const data = await response.text();
+
+        if (data.includes(suffix.toUpperCase())) {
+            breachResult.textContent = "⚠️ تم العثور على هذه الكلمة في تسريبات سابقة! يرجى تغييرها.";
+            breachResult.style.color = "red";
+        } else {
+            breachResult.textContent = "✅ لم يتم العثور على كلمة المرور في أي تسريبات معروفة.";
+            breachResult.style.color = "green";
+        }
+    } catch (error) {
+        breachResult.textContent = "حدث خطأ أثناء الفحص. يرجى المحاولة لاحقًا.";
+        breachResult.style.color = "orange";
+    }
+}
+
+// Function to hash the password using SHA-1
+async function hashPassword(password) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(password);
+    const hashBuffer = await crypto.subtle.digest("SHA-1", data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
 }
